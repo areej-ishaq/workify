@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up Successful</title>
+    <title>Workify: Dashboard</title>
 </head>
 <body>
-    <h1>Successful!</h1>
-    <p>Continue to Home</p>
+    <h1 th:text = "'Welcome ' + ${name} + '!'">Welcome, Freelancer!</h1>
     <a href="home"><button>Home</button></a>
-    
 </body>
 </html>
+    
+    

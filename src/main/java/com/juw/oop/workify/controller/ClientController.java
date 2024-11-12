@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -41,7 +42,7 @@ public class ClientController {
     }
 
     @PostMapping("/client-signup")
-    public String registerClient(@Valid Client client, BindingResult result, Model model) {
+    public String registerClient(@Valid @ModelAttribute Client client, BindingResult result, Model model) {
         // If there are validation errors, bind the object to model and show sign up page again with the errors
         if (result.hasErrors()) {
             model.addAttribute("client", client); 
@@ -55,8 +56,11 @@ public class ClientController {
             return "/client/client-signup"; 
         }
 
-        return "/client/signup-success"; // Redirect to success page
+        model.addAttribute("name", client.getName());
+        return "/client/client-home"; // Redirect to client dashboard page
     }
+
+
     @PutMapping("/clients/{id}")
     public ResponseEntity<String> updateClient(@Valid @RequestBody Client client, @PathVariable("id") Long clientId) {
         return clientService.updateClient(client, clientId); 
