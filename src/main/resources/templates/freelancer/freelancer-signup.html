@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Sign Up</title>
+</head>
+<body>
+    <form th:action="@{freelancer-signup}" method="POST" th:object="${freelancer}">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required />
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Errors</span>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required />
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+        </div>
+
+        <div>
+            <label for="skill">Skills:</label>
+            <input type="text" id="skill" th:field="*{skill}" placeholder="Enter your skills (separated by comma if more than 1)" required />
+            <span th:if="${#fields.hasErrors('skill')}" th:errors="*{skill}">Skill Error</span>
+        </div>
+
+        <div>
+            <label for="location">Location:</label>
+            <input type="text" id="location" th:field="*{location}" placeholder="Enter your location in form (City, Country)" required />
+            <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location Error</span>
+        </div>
+
+        <!-- Display Error if Freelancer with same email already exists -->
+        <div th:if="${error}">
+            <p style="color: red;">[[${error}]]</p>
+        </div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+</body>
+</html>

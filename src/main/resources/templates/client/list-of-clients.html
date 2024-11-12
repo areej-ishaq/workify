@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>List of Clients</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Skill</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through the clients list and display each client's data -->
+            <tr th:each="client : ${clientList}">
+                <td th:text="${client.id}"></td>
+                <td th:text="${client.name}"></td>
+                <td th:text="${client.email}"></td>
+                <td th:text="${client.skillRequirement}"></td>
+                <td th:text="${client.location}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

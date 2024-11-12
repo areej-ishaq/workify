@@ -1,0 +1,29 @@
+package com.juw.oop.workify.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class MainController {
+
+    @GetMapping("/")
+    public String showHomePg() {
+        return "home";
+    }
+
+    @GetMapping("/client-sign-in")
+    public String showClientPg() {
+        return "/client/client-sign-in";
+    }
+
+    @GetMapping("/freelancer-sign-in")
+    public String showFreelancerPg() {
+        return "/freelancer/freelancer-sign-in";
+    }
+
+    @GetMapping("/home")
+    public String Home() {
+        return "home";
+    }
+    
+}

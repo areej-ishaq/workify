@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>Client Sign Up</title>
+</head>
+<body>
+    <h1>Sign Up Form</h1>
+    <form th:action="@{/client-signup}" method="POST" th:object="${client}">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required />
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required />
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+        </div>
+
+        <div>
+            <label for="skillRequirement">Skill Requirement:</label>
+            <input type="text" id="skillRequirement" th:field="*{skillRequirement}" placeholder="Enter skill requirement (separated by comma if more than 1)" required />
+            <span th:if="${#fields.hasErrors('skillRequirement')}" th:errors="*{skillRequirement}">Skill Requirement Error</span>
+        </div>
+
+        <div>
+            <label for="location">Location:</label>
+            <input type="text" id="location" th:field="*{location}" placeholder="Enter your location in form (City, Country)" required />
+            <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location Error</span>
+        </div>
+
+        <!-- Display Error if Client with same email already exists -->
+        <div th:if="${error}">
+            <p style="color: red;">[[${error}]]</p>
+        </div>
+
+        <button type="submit">Sign Up</button>
+
+    </form>
+
+</body>
+</html>

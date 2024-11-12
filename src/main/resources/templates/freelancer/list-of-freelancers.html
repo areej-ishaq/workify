@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>List of Freelancers</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Skill</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterate over the 'freelancers' list and display each freelancer's details -->
+            <tr th:each="freelancer : ${freelancersList}">
+                <td th:text="${freelancer.id}"></td>
+                <td th:text="${freelancer.name}"></td>
+                <td th:text="${freelancer.email}"></td>
+                <td th:text="${freelancer.skill}"></td>
+                <td th:text="${freelancer.location}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
