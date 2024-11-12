@@ -55,6 +55,24 @@ public class ClientService {
         
     }
 
+    public Optional<String> updateSkillRequirement(String skill, Long Id) {
+        Optional<Client> clientRecordOptional = clientRepository.findById(Id);
+
+        if (clientRecordOptional.isPresent()) {
+            Client clientRecord = clientRecordOptional.get();
+            clientRecord.setSkillRequirement(skill);
+            clientRecord.setName(clientRecord.getName());
+            clientRecord.setEmail(clientRecord.getEmail());
+            clientRecord.setLocation(clientRecord.getLocation());
+
+            clientRepository.save(clientRecord);
+            return Optional.empty();
+        }
+        else {
+            return Optional.of("No client with that email exists.");
+        }
+    }
+
     public ResponseEntity<String> updateClient(Client client, Long Id) {
         Optional<Client> clientRecordOptional = clientRepository.findById(Id);
 
