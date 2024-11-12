@@ -12,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import com.juw.oop.workify.entity.Freelancer;
 import com.juw.oop.workify.repository.FreelancerRepository;
 
-// ResponseEntity reference = https://www.baeldung.com/spring-response-entity
+// ResponseEntity reference = https://www.baeldung.com/spring-response-entity - No longer in use
 
 @Validated
 @Service
