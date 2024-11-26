@@ -55,12 +55,12 @@ public class ClientService {
         
     }
 
-    public Optional<String> updateSkillRequirement(String skill, Long Id) {
-        Optional<Client> clientRecordOptional = clientRepository.findById(Id);
+    public Optional<String> updateSkillRequirement(Client client) {
+        Optional<Client> clientRecordOptional = clientRepository.findByEmail(client.getEmail());
 
         if (clientRecordOptional.isPresent()) {
             Client clientRecord = clientRecordOptional.get();
-            clientRecord.setSkillRequirement(skill);
+            clientRecord.setSkillRequirement(client.getSkillRequirement());
             clientRecord.setName(clientRecord.getName());
             clientRecord.setEmail(clientRecord.getEmail());
             clientRecord.setLocation(clientRecord.getLocation());
