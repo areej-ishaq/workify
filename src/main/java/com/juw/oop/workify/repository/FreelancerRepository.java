@@ -9,6 +9,6 @@ import com.juw.oop.workify.entity.Freelancer;
 
 @Repository
 public interface FreelancerRepository extends CrudRepository<Freelancer, Long> {
-    Optional<Freelancer> findByEmail(String email);
+    public Optional<Freelancer> findByEmail(String email);
     
 }

@@ -1,6 +1,5 @@
 package com.juw.oop.workify.controller;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,7 +8,7 @@ public class MainController {
 
     @GetMapping("/")
     public String showHomePg() {
-        return "home"; // This will render home.html
+        return "home";
     }
 
     @GetMapping("/client-sign-in")
@@ -26,5 +25,5 @@ public class MainController {
     public String Home() {
         return "home";
     }
-
+    
 }

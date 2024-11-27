@@ -9,7 +9,6 @@ import com.juw.oop.workify.entity.Client;
 
 @Repository
 public interface ClientRepository extends CrudRepository<Client, Long> {
-    Optional<Client> findByEmail(String email);
-
+    public Optional<Client> findByEmail(String email);
     
 }

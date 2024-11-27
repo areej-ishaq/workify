@@ -8,11 +8,6 @@
 </head>
 <body>
     <h1 th:text = "'Welcome ' + ${name} + '!'">Welcome, Freelancer!</h1>
-    <!-- Display success message for updating skill -->
-    <div th:if="${message}">
-        <p style="color: green;" th:text="${message}"></p>
-    </div>
-    <a th:href="@{/update-skill/{email}(email=${freelancer.email})}"><button>Change Skill</button></a>
     <a href="home"><button>Home</button></a>
 </body>
 </html>

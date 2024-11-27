@@ -17,32 +17,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.juw.oop.workify.entity.Client;
 import com.juw.oop.workify.entity.Freelancer;
-import com.juw.oop.workify.repository.FreelancerRepository;
 import com.juw.oop.workify.service.FreelancerService;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
 public class FreelancerController {
     @Autowired
     FreelancerService freelancerService;
-    @Autowired
-    FreelancerRepository freelancerRepository;
-    
+
     @GetMapping("/freelancer-signup")
     public String showSignUpPg(Model model) {
-    model.addAttribute("freelancer", new Freelancer());
+        model.addAttribute("freelancer", new Freelancer());
         return "/freelancer/freelancer-signup";
-     }
-    
+    }
+
     @PostMapping("/freelancer-signup")
-    public String registerFreelancer(@Valid @ModelAttribute Freelancer freelancer, BindingResult result, 
-                                    Model model, HttpSession session) {
+    public String registerFreelancer(@Valid @ModelAttribute Freelancer freelancer, BindingResult result, Model model) {
         // If there are validation errors, bind the object to model and show sign up page again with the errors
         if (result.hasErrors()) {
             model.addAttribute("freelancer", freelancer);
@@ -57,45 +50,10 @@ public class FreelancerController {
             return "/freelancer/freelancer-signup";
         }
 
-        session.setAttribute("freelancer", freelancer);;
-        return "redirect:/freelancer-home";
-    }
-    
-    @GetMapping("/freelancer-home")
-    public String showFreelancerHomePg(HttpSession session, Model model) {
-        Freelancer freelancer = (Freelancer) session.getAttribute("freelancer");
-        String name = freelancer.getName();
-
-        model.addAttribute("name", name);
-        model.addAttribute("freelancer", freelancer);
-
+        model.addAttribute("name", freelancer.getName());
         return "/freelancer/freelancer-home";
     }
 
-    @GetMapping("/update-skill/{email}")
-    public String showUpdateSkillPg(@PathVariable String email, HttpSession session, Model model) {
-        Freelancer freelancer = freelancerRepository.findByEmail(email).get();
-        
-        model.addAttribute("freelancer", freelancer);
-        return "/freelancer/update-skill";
-    }
-
-    @PutMapping("/update-skill/{email}")
-    public String updateSkill(@ModelAttribute Freelancer freelancer, 
-                                @PathVariable("email") String email, Model model, 
-                                HttpSession session, RedirectAttributes redirectAttributes) {
-        Optional<String> freelancerNotFoundError = freelancerService.updateSkill(freelancer);
-
-        if (freelancerNotFoundError.isPresent()) {
-            model.addAttribute("error", freelancerNotFoundError.get());
-            return "/freelancer/update-skill";
-        }
-
-        redirectAttributes.addFlashAttribute("message", "Skill successfully updated!");
-        return "redirect:/freelancer-home";
-        
-    } 
-    /*  
     @PutMapping("/freelancers/{id}")
 public ResponseEntity<String> updateFreelancer(@Valid @RequestBody Freelancer freelancer, 
                                                @PathVariable("id") Long freelancerId, 
@@ -120,7 +78,7 @@ public ResponseEntity<String> updateFreelancer(@Valid @RequestBody Freelancer fr
     public ResponseEntity<String> deleteFreelancer(@PathVariable("id") Long freelancerId) {
         return freelancerService.deleteFreelancer(freelancerId);
     }
-*/
+
     @GetMapping("/freelancers")
     public String fetchFreelancers(Model model) {
         List<Freelancer> freelancersList = freelancerService.fetchFreelancers();
