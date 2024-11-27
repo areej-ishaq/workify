@@ -78,6 +78,28 @@ public class ClientController {
         session.setAttribute("client", client);
         return "redirect:/client-home"; // Redirect to client dashboard page
     }
+
+    // Show Login Page
+    @GetMapping("/client-login")
+    public String showLoginPage(Model model) {
+        model.addAttribute("client", new Client());
+        return "/client/client-login";  
+    }
+
+    @PostMapping("/client-login")
+    public String clientLogin(@ModelAttribute Client client, HttpSession session, Model model) {
+        Optional<Client> clientRecord = clientService.authenticateClient(client.getEmail(), client.getPassword());
+        
+        if (clientRecord.isPresent()) {
+            // Store client object in session
+            session.setAttribute("client", clientRecord.get());
+            return "redirect:/client-home"; // Redirect to client home
+        } else {
+            // Invalid login
+            model.addAttribute("error", "Invalid password or email");
+            return "/client/client-login"; 
+        }
+    }
     
     @GetMapping("/client-home")
     public String showClientHomePg(HttpSession session, Model model) {

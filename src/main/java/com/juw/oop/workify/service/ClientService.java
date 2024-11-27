@@ -37,6 +37,10 @@ public class ClientService {
         }
     }
 
+    public Optional<Client> authenticateClient(String email, String password) {
+        return clientRepository.findByEmailAndPassword(email, password);
+    }
+
     public List<Client> fetchClients() {
         return (List<Client>) clientRepository.findAll(); // Return all user records in database as a list
     }

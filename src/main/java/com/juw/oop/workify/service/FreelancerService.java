@@ -43,6 +43,10 @@ public class FreelancerService {
         }
     }
 
+    public Optional<Freelancer> authenticateFreelancer(String email, String password) {
+        return freelancerRepository.findByEmailAndPassword(email, password);
+    }
+
     public List<Freelancer> fetchFreelancers() {
         return (List<Freelancer>) freelancerRepository.findAll();
     }

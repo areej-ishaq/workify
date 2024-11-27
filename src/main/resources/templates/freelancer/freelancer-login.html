@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <title>Workify: Login</title>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Freelancer Login</h2>
+        <form th:action="@{freelancer-login}" method="POST" th:object="${freelancer}">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required />
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" th:field="*{password}" placeholder="Enter your password" required />
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
+            </div>
+
+            <div th:if="${error}">
+                <p style="color: red;">[[${error}]]</p>
+            </div>
+
+            <button type="submit">Login</button>
+
+            <p>Don't have an account? <a href="/freelancer-signup">Sign up here</a></p>
+        </form>
+    </div>
+</body>
+</html>

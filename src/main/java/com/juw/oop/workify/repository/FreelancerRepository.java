@@ -11,10 +11,12 @@ import org.springframework.stereotype.Repository;
 import com.juw.oop.workify.entity.Freelancer;
 
 @Repository
-public interface FreelancerRepository extends JpaRepository<Freelancer, Long> {
+public interface FreelancerRepository extends CrudRepository<Freelancer, Long> {
 
     // Method to find Freelancer by Email
     Optional<Freelancer> findByEmail(String email);
+
+    Optional<Freelancer> findByEmailAndPassword(String email, String password);
 
     // Method to find distinct skills from Freelancer entities
     @Query("SELECT DISTINCT f.skill FROM Freelancer f")

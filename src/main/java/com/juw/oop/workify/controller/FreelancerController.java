@@ -61,6 +61,27 @@ public class FreelancerController {
         return "redirect:/freelancer-home";
     }
     
+    @GetMapping("/freelancer-login")
+    public String showLoginPage(Model model) {
+        model.addAttribute("freelancer", new Freelancer());
+        return "/freelancer/freelancer-login";  
+    }
+
+    @PostMapping("/freelancer-login")
+    public String freelancerLogin(@ModelAttribute Freelancer freelancer, HttpSession session, Model model) {
+        Optional<Freelancer> freelancerRecord = freelancerService.authenticateFreelancer(freelancer.getEmail(), freelancer.getPassword());
+        
+        if (freelancerRecord.isPresent()) {
+            // Store freelancer object in session
+            session.setAttribute("freelancer", freelancerRecord.get());
+            return "redirect:/freelancer-home"; // Redirect to freelancer home
+        } else {
+            // Invalid login
+            model.addAttribute("error", "Invalid password or email");
+            return "/freelancer/freelancer-login"; 
+        }
+    }
+
     @GetMapping("/freelancer-home")
     public String showFreelancerHomePg(HttpSession session, Model model) {
         Freelancer freelancer = (Freelancer) session.getAttribute("freelancer");
