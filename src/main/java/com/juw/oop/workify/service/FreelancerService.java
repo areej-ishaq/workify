@@ -9,10 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.juw.oop.workify.entity.Client;
 import com.juw.oop.workify.entity.Freelancer;
 import com.juw.oop.workify.repository.FreelancerRepository;
 
-// ResponseEntity reference = https://www.baeldung.com/spring-response-entity
+// ResponseEntity reference = https://www.baeldung.com/spring-response-entity - No longer in use
 
 @Validated
 @Service
@@ -38,23 +39,21 @@ public class FreelancerService {
         return (List<Freelancer>) freelancerRepository.findAll();
     }
 
-    public ResponseEntity<String> updateFreelancer(Freelancer freelancer, Long id) {
-        Optional<Freelancer> freelancerRecordOptional = freelancerRepository.findById(id);
+    public Optional<String> updateSkill(Freelancer freelancer) {
+        Optional<Freelancer> freelancerRecordOptional = freelancerRepository.findByEmail(freelancer.getEmail());
     
         if (freelancerRecordOptional.isPresent()) {
             Freelancer freelancerRecord = freelancerRecordOptional.get();
-            
-            freelancerRecord.setName(freelancer.getName());
-            freelancerRecord.setEmail(freelancer.getEmail());
-            freelancerRecord.setLocation(freelancer.getLocation());
             freelancerRecord.setSkill(freelancer.getSkill());
-    
+            //freelancerRecord.setName(freelancerRecord.getName());
+            //freelancerRecord.setEmail(freelancerRecord.getEmail());
+            //freelancerRecord.setLocation(freelancerRecord.getLocation());
+
             freelancerRepository.save(freelancerRecord);
-            
-            return ResponseEntity.ok("Freelancer information successfully updated");
-        } 
+            return Optional.empty();
+        }
         else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Freelancer not found");
+            return Optional.of("No freelancer with that email exists.");
         }
     }
     
