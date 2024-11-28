@@ -29,6 +29,10 @@ public class Freelancer {
     @Email
     private String email; 
 
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters long.")
+    private String password;
+
     @NotBlank(message = "Skill is required.")
     @Size(min = 3, max = 50, message = "Skill must be between 3 and 50 characters.")
     private String skill;

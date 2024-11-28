@@ -19,6 +19,12 @@
         </div>
 
         <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="Enter your password" required />
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
+        </div>
+
+        <div>
             <label for="skillRequirement">Skill Requirement:</label>
             <input type="text" id="skillRequirement" th:field="*{skillRequirement}" placeholder="Enter skill requirement (separated by comma if more than 1)" required />
             <span th:if="${#fields.hasErrors('skillRequirement')}" th:errors="*{skillRequirement}">Skill Requirement Error</span>

@@ -19,7 +19,15 @@ import com.juw.oop.workify.repository.FreelancerRepository;
 @Service
 public class FreelancerService {
     @Autowired
-    FreelancerRepository freelancerRepository;
+    private final FreelancerRepository freelancerRepository;
+
+    public FreelancerService(FreelancerRepository freelancerRepository) {
+        this.freelancerRepository = freelancerRepository;
+    }
+
+    public List<String> getAllDistinctSkills() {
+        return freelancerRepository.findDistinctSkills();
+    }
 
     public Optional<String> saveFreelancer(Freelancer freelancer) {
         // Check if a freelancer account with that email already exists

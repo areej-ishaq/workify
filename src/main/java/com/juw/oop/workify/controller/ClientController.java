@@ -3,6 +3,7 @@ package com.juw.oop.workify.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.juw.oop.workify.service.FreelancerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,18 @@ import jakarta.validation.Valid;
 public class ClientController {
     @Autowired
     ClientService clientService;
+    private final FreelancerService freelancerService;
+
+    public ClientController(FreelancerService freelancerService) {
+        this.freelancerService = freelancerService;
+    }
+
+    @GetMapping("/find-work")
+    public String showFindWorkPage(Model model) {
+        List<String> skills = freelancerService.getAllDistinctSkills();
+        model.addAttribute("skills", skills);
+        return "client/find-work"; // Points to the find-work.html file
+    }
     /* Spring will now look for bean of type ClientService and since ClientService is defined as 
     a Spring component (annotated with Service), Spring will automatically provide (or inject) 
     an instance of ClientService class into the class */
