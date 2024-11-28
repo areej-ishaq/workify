@@ -4,38 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/home-style.css}" />
     <title>Freelancer Sign Up</title>
 </head>
 <body>
+    <h1>Freelancer: Sign Up</h1>
     <form th:action="@{freelancer-signup}" method="POST" th:object="${freelancer}">
         <div>
             <label for="name">Name:</label>
             <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required />
-            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Errors</span>
+            <span th:class="${#fields.hasErrors('name')} ? 'error' : ''" th:errors="*{name}"></span>
         </div>
 
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required />
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+            <span th:if="${#fields.hasErrors('email')}" th:classappend="'error'" th:errors="*{email}">Email Error</span>
         </div>
 
         <div>
             <label for="password">Password:</label>
             <input type="password" id="password" th:field="*{password}" placeholder="Enter your password" required />
-            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
+            <span th:if="${#fields.hasErrors('password')}" th:classappend="'error'" th:errors="*{password}">Password Error</span>
+        </div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" th:field="*{price}" placeholder="Enter your price" value="350.00" />
+        <div>
+
         </div>
 
         <div>
             <label for="skill">Skills:</label>
             <input type="text" id="skill" th:field="*{skill}" placeholder="Enter your skills (separated by comma if more than 1)" required />
-            <span th:if="${#fields.hasErrors('skill')}" th:errors="*{skill}">Skill Error</span>
+            <span th:if="${#fields.hasErrors('skill')}" th:classappend="'error'" th:errors="*{skill}">Skill Error</span>
         </div>
 
         <div>
             <label for="location">Location:</label>
             <input type="text" id="location" th:field="*{location}" placeholder="Enter your location in form (City, Country)" required />
-            <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location Error</span>
+            <span th:if="${#fields.hasErrors('location')}" th:classappend="'error'" th:errors="*{location}">Location Error</span>
         </div>
 
         <!-- Display Error if Freelancer with same email already exists -->
@@ -43,7 +50,7 @@
             <p style="color: red;">[[${error}]]</p>
         </div>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit"  class="btn-primary">Sign Up</button>
     </form>
 </body>
 </html>

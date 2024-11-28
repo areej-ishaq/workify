@@ -10,7 +10,7 @@
 <body>
 
     <div class="form-container">
-        <h2>Client Login</h2>
+        <h2>Client: Login</h2>
         
         <!-- Login Form -->
         <form th:action="@{client-login}" method="POST" th:object="${client}">
@@ -19,19 +19,19 @@
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required />
-                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message">Email Error</span>
+                <span th:if="${#fields.hasErrors('email')}" th:classappend="'error'" th:errors="*{email}" class="error-message">Email Error</span>
             </div>
             
             <!-- Password Input -->
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" th:field="*{password}" placeholder="Enter your password" required />
-                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message">Password Error</span>
+                <span th:if="${#fields.hasErrors('password')}" th:classappend="'error'" th:errors="*{password}" class="error-message">Password Error</span>
             </div>
 
             <!-- Login Error Message -->
             <div th:if="${error}">
-                <p class="error-message">[[${error}]]</p>
+                <span class="error">[[${error}]]</p>
             </div>
 
             <!-- Submit Button -->

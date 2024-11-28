@@ -1,5 +1,7 @@
 package com.juw.oop.workify.entity;
 
+import jakarta.persistence.Column;
+
 // Code reference: https://www.geeksforgeeks.org/spring-boot-with-h2-database/
 
 import jakarta.persistence.Entity;
@@ -14,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Builder.Default;
 
 @Entity // Makes the class a database entity (a table)
 @Data // Lombok annotation: Generates getters, setters, toString(), equals(), and hashCode() automatically.

@@ -1,5 +1,6 @@
 package com.juw.oop.workify.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,6 +37,9 @@ public class Freelancer {
     @NotBlank(message = "Skill is required.")
     @Size(min = 3, max = 50, message = "Skill must be between 3 and 50 characters.")
     private String skill;
+
+    @Column(nullable = false)
+    private Double price = 350.00;
 
     @NotBlank(message = "Location cannot be blank.")
     @Size(min = 4, max = 100, message = "Location must be between 2 and 100 characters.")

@@ -4,16 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/home-style.css}" />
     <title>Workify: Dashboard</title>
 </head>
 <body>
     <h1 th:text = "'Welcome ' + ${name} + '!'">Welcome, Freelancer!</h1>
+
     <!-- Display success message for updating skill -->
     <div th:if="${message}">
         <p style="color: green;" th:text="${message}"></p>
     </div>
-    <a th:href="@{/update-skill/{email}(email=${freelancer.email})}"><button>Change Skill</button></a>
-    <a href="home"><button>Home</button></a>
+
+    <!-- Buttons section -->
+     <div class="button-container">
+        <a th:href="@{/update-skill/{email}(email=${freelancer.email})}">
+            <button class="btn-primary">Set Skill & Price</button>
+        </a>
+        <a href="home">
+            <button class="btn-secondary">Home</button>
+        </a>
+     </div>
+    
 </body>
 </html>
     

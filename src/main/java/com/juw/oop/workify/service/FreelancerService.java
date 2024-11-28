@@ -57,6 +57,7 @@ public class FreelancerService {
         if (freelancerRecordOptional.isPresent()) {
             Freelancer freelancerRecord = freelancerRecordOptional.get();
             freelancerRecord.setSkill(freelancer.getSkill());
+            freelancerRecord.setPrice(freelancer.getPrice());
             //freelancerRecord.setName(freelancerRecord.getName());
             //freelancerRecord.setEmail(freelancerRecord.getEmail());
             //freelancerRecord.setLocation(freelancerRecord.getLocation());

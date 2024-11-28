@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/home-style.css}" />
     <title>Workify: Freelancers</title>
 </head>
 <body>
+    <h1>Freelancer</h1>
     <p>Thank you for using our services</p>
     <p>Sign up or log in to continue</p>
-    <a href="freelancer-signup"><button>Sign up</button></a>
-    <button>Log in</button>
+    <div class="button-container">
+        <a href="freelancer-signup">
+            <button  class="btn-primary">Sign up</button>
+        </a>
+        <a href="freelancer-login">
+            <button class="btn-secondary">Log in</button>
+        </a>
+    </div>
 </body>
 </html>

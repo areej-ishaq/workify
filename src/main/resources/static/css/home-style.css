@@ -3,7 +3,7 @@ body {
     background-color: #f4f4f9;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #333;
-    margin: 0;
+    margin: 3px;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -40,11 +40,31 @@ h1 {
     margin: 0;
 }
 
+/* Error Message Styling */
+form span.error {
+    color: #e31919; 
+    font-size: 0.9rem;
+    margin-top: 2px;
+    display: block; /* Ensures proper alignment below the input */
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
 /* Button Container Styling */
 .button-container {
     display: flex;
     gap: 20px;
     margin-top: 40px;
+    flex-wrap: wrap; /* Ensure buttons wrap in smaller screens */
+}
+
+/* Vertical Spacing for Stacked Buttons */
+.button-container button {
+    margin-bottom: 15px; /* Add space between buttons when stacked */
+}
+
+.button-container a:last-child button {
+    margin-bottom: 0; /* Remove margin for the last button to prevent extra space */
 }
 
 /* Button Base Styling */
@@ -124,6 +144,32 @@ input[type="text"], input[type="email"], input[type="password"], select, textare
     transition: all 0.3s ease;
 }
 
+/* Number Input Field Styling */
+input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fafafa;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* Focus Effect for Number Input */
+input[type="number"]:focus {
+    border-color: #007bff;
+    background-color: white;
+    outline: none;
+}
+
+/* Placeholder Styling */
+input[type="number"]::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
 /* Focus Effect for Form Elements */
 input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
     border-color: #007bff;
@@ -167,6 +213,7 @@ input[type="submit"]:active {
     .button-container {
         flex-direction: column;
         align-items: center;
+        gap: 0;
     }
     button {
         width: 100%;
@@ -174,5 +221,9 @@ input[type="submit"]:active {
     }
     .form-container {
         padding: 20px;
+    }
+    input[type="number"] {
+        padding: 10px;
+        font-size: 0.9rem;
     }
 }

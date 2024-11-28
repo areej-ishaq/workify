@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/home-style.css}" />
     <title>Workify: Update</title>
 </head>
 <body>
@@ -15,6 +16,7 @@
 
     <!-- Show the current skill requirement -->
     <p th:text="'The skill you entered: ' + ${freelancer.skill}">The skill goes here</p>    
+    <p th:text="'The price you set: ' + ${freelancer.price}">The price goes here</p>   
 
     <!-- Form to update skill  -->
     <form action="#" th:action="@{/update-skill/{email}(email=${freelancer.email})}" method="post" th:object="${freelancer}">
@@ -32,7 +34,12 @@
         </div>
 
         <div>
-            <button type="submit">Update Skill</button>
+            <label for="price">New Price:</label>
+            <input type="number" id="price" th:field="*{price}" placeholder="Enter new price" value="350" required/>
+        </div>
+
+        <div class="button-container">
+            <button type="submit">Update!</button>
         </div>
     </form>
 </body>
