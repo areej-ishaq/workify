@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/home-style.css}" />
+    <title>Find Work</title>
+</head>
+<body>
+    <h1>Matching Freelancers</h1>
+
+    <div>
+        <p>Search results for: <span th:text="${client.skillRequirement}"></span></p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Skill</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="freelancer : ${freelancers}">
+                <td th:text="${freelancer.name}"></td>
+                <td th:text="${freelancer.skill}"></td>
+                <td th:text="${freelancer.price}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="signup-link">
+        <a th:href="@{/update-skill-req/{email}(email=${client.email})}">
+            Change Requirement?
+        </a>
+    </p>
+
+</body>
+</html>

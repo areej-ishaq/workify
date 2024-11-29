@@ -1,7 +1,10 @@
 package com.juw.oop.workify.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.print.DocFlavor.STRING;
 
 import com.juw.oop.workify.service.FreelancerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.juw.oop.workify.entity.Client;
+import com.juw.oop.workify.entity.Freelancer;
 import com.juw.oop.workify.repository.ClientRepository;
 import com.juw.oop.workify.service.ClientService;
 
@@ -33,24 +38,40 @@ public class ClientController {
     @Autowired
     ClientService clientService;
     private final FreelancerService freelancerService;
+    /* Spring will now look for bean of type ClientService and since ClientService is defined as 
+    a Spring component (annotated with Service), Spring will automatically provide (or inject) 
+    an instance of ClientService class into the class */
+    @Autowired
+    ClientRepository clientRepository;
 
     public ClientController(FreelancerService freelancerService) {
         this.freelancerService = freelancerService;
     }
 
     @GetMapping("/find-work")
-    public String showFindWorkPage(Model model) {
-        List<String> skills = freelancerService.getAllDistinctSkills();
-        model.addAttribute("skills", skills);
-        return "client/find-work"; // Points to the find-work.html file
+    public String showFindWorkPage(HttpSession session, Model model) {
+        Client clientRecord = (Client) session.getAttribute("client");
+
+        model.addAttribute("client", clientRecord);
+        return "/client/find-work";
+
     }
-    /* Spring will now look for bean of type ClientService and since ClientService is defined as 
-    a Spring component (annotated with Service), Spring will automatically provide (or inject) 
-    an instance of ClientService class into the class */
-    @Autowired
-    ClientRepository clientRepository;
     
-        // GetMapping = retrieve data, PostMapping = create/add data, DeleteMapping = delete data, PutMapping = update data
+    @GetMapping("/find-work-results")
+    public String showMatchingFreelancers(HttpSession session, Model model) {
+        List<Freelancer> matchingFreelancers = new ArrayList<>();
+        Client clientRecord = (Client) session.getAttribute("client");
+        String skillRequirement = clientRecord.getSkillRequirement();
+
+        if (skillRequirement != null && !skillRequirement.isEmpty()) {
+            // Fetch freelancers matching the skillRequirement
+            matchingFreelancers = freelancerService.findFreelancersBySkill(skillRequirement);
+        }
+
+        model.addAttribute("freelancers", matchingFreelancers);
+        model.addAttribute("client", clientRecord); // Retain the skillRequirement for display
+        return "/client/find-work-results"; // Points to find-work-results.html
+    }
     
     // Show Sign Up page
     @GetMapping("/client-signup")
@@ -129,6 +150,7 @@ public class ClientController {
             return "/client/update-skill-req";
         }
 
+        session.setAttribute("client", client);
         redirectAttributes.addFlashAttribute("message", "Requirement successfully updated!");
         return "redirect:/client-home";
         

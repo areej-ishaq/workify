@@ -25,6 +25,11 @@ public class FreelancerService {
         this.freelancerRepository = freelancerRepository;
     }
 
+    public List<Freelancer> findFreelancersBySkill(String skillRequirement) {
+        String skillPattern = "%" + skillRequirement.toLowerCase() + "%";
+        return freelancerRepository.findFreelancersBySkill(skillPattern);
+    }
+
     public List<String> getAllDistinctSkills() {
         return freelancerRepository.findDistinctSkills();
     }

@@ -5,20 +5,12 @@
     <link rel="stylesheet" th:href="@{/css/home-style.css}" />
 </head>
 <body>
-<h1>Find Work!</h1>
-<button id="findWorkButton" onclick="toggleDropdown()">Find Work!</button>
-
-<div id="skillDropdown" style="display: none;">
-    <ul>
-        <li th:each="skill : ${skills}" th:text="${skill}"></li>
-    </ul>
-</div>
-
-<script>
-    function toggleDropdown() {
-        const dropdown = document.getElementById('skillDropdown');
-        dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
-    }
-</script>
+    <h1>Find Work!</h1>
+    <div>
+        <p th:text="'The skill you asked for: ' + ${client.skillRequirement}">The skill needed goes here</p> 
+    </div>
+    <div class="button-container">
+        <a href="find-work-results"><button type="submit" class="btn-primary">Search for Freelancers</button></a>
+    </div>
 </body>
 </html>
