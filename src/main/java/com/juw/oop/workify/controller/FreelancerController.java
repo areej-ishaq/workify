@@ -2,27 +2,23 @@ package com.juw.oop.workify.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.juw.oop.workify.entity.Client;
 import com.juw.oop.workify.entity.Freelancer;
+import com.juw.oop.workify.entity.Request;
 import com.juw.oop.workify.repository.FreelancerRepository;
 import com.juw.oop.workify.service.FreelancerService;
+import com.juw.oop.workify.service.RequestService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -33,6 +29,8 @@ public class FreelancerController {
     FreelancerService freelancerService;
     @Autowired
     FreelancerRepository freelancerRepository;
+    @Autowired
+    RequestService requestService;
     
     @GetMapping("/freelancer-signup")
     public String showSignUpPg(Model model) {
@@ -91,6 +89,63 @@ public class FreelancerController {
         model.addAttribute("freelancer", freelancer);
 
         return "/freelancer/freelancer-home";
+    }
+
+    @GetMapping("/freelancer-requests")
+    public String showRequestsPg(HttpSession session, Model model) {
+        Freelancer freelancer = (Freelancer) session.getAttribute("freelancer");
+        
+        if (freelancer == null) {
+            return "redirect:/freelancer-login";
+        }
+
+        List<Request> allRequests = requestService.findByFreelancer(freelancer);
+        Boolean noRequests = false;
+
+        if (allRequests.isEmpty()) {
+            noRequests = true;
+        }
+        model.addAttribute("requests", allRequests);
+        model.addAttribute("noRequests", noRequests);
+        return "/freelancer/freelancer-requests";
+    }
+
+    // Accept a request
+    @GetMapping("/freelancer/accept-request/{requestId}")
+    public String acceptRequest(@PathVariable("requestId") Long id, RedirectAttributes redirectAttributes, HttpSession session) {
+        Freelancer freelancer = (Freelancer) session.getAttribute("freelancer");
+
+        if (freelancer == null) {
+            return "redirect:/freelancer/login"; // If not logged in, redirect to login
+        }
+
+        Request request = requestService.findById(id);
+        if (request != null && request.getFreelancer().equals(freelancer)) {
+            request.setStatus("Accepted");
+            requestService.saveRequest(request);
+        }
+
+        redirectAttributes.addAttribute("message", "Request successfully accepted");
+        return "redirect:/freelancer-home";
+    }
+
+    // Reject a request
+    @GetMapping("/freelancer/reject-request/{requestId}")
+    public String rejectRequest(@PathVariable Long requestId, HttpSession session, RedirectAttributes redirectAttributes) {
+        Freelancer freelancer = (Freelancer) session.getAttribute("freelancer");
+
+        if (freelancer == null) {
+            return "redirect:/freelancer-login"; 
+        }
+
+        Request request = requestService.findById(requestId);
+        if (request != null && request.getFreelancer().equals(freelancer)) {
+            request.setStatus("Rejected");  
+            requestService.saveRequest(request);
+        }
+
+        redirectAttributes.addAttribute("message", "Request successfully rejected");
+        return "redirect:/freelancer-home"; 
     }
 
     @GetMapping("/update-skill/{email}")

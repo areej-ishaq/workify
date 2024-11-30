@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.juw.oop.workify.entity.Client;
 import com.juw.oop.workify.entity.Freelancer;
 import com.juw.oop.workify.repository.FreelancerRepository;
 
@@ -23,6 +22,11 @@ public class FreelancerService {
 
     public FreelancerService(FreelancerRepository freelancerRepository) {
         this.freelancerRepository = freelancerRepository;
+    }
+
+    public Freelancer findById(Long freelancerId) {
+        return freelancerRepository.findById(freelancerId)
+                .orElse(null); 
     }
 
     public List<Freelancer> findFreelancersBySkill(String skillRequirement) {

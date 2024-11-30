@@ -189,3 +189,36 @@ INSERT INTO Freelancer (name, email, skill, location, password) VALUES
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-11-30 22:16:13.002202+05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "SKILL CHARACTER VARYING(50)": "'Social Media Management, Instagram Marketing, Content Planning' (62)"; SQL statement:
+INSERT INTO Freelancer (name, email, skill, location, password, price) VALUES
+('Ethan Carter', 'ethan.carter@mail.com', 'Web Development, React, Next.js', 'Los Angeles, USA', '12345678', 6500),
+('Maya Roberts', 'maya.roberts@mail.com', 'Graphic Design, Web Design, Sketch', 'Vancouver, Canada', '12345678', 1999),
+('Oliver Williams', 'oliver.williams@mail.com', 'App Development, Swift, Objective-C', 'Miami, USA', '12345678', 7500),
+('Lily Johnson', 'lily.johnson@mail.com', 'Content Creation, Blogging, SEO', 'London, UK', '12345678', 4000),
+('Lucas Walker', 'lucas.walker@mail.com', 'Web Development, HTML, CSS, JavaScript', 'Sydney, Australia', '12345678', 5000),
+('Zoe Allen', 'zoe.allen@mail.com', 'Data Science, SQL, Data Visualization', 'Berlin, Germany', '12345678', 7550),
+('Jacob Scott', 'jacob.scott@mail.com', 'UX/UI Design, Adobe XD, Web Design', 'Paris, France', '12345678', 2500),
+('Sophia Mitchell', 'sophia.mitchell@mail.com', 'Mobile App Development, React Native, iOS', 'Toronto, Canada', '12345678', 8500),
+('Benjamin Clark', 'benjamin.clark@mail.com', 'Web Development, Vue.js, Node.js', 'New York, USA', '12345678', 5000),
+('Amelia King', 'amelia.king@mail.com', 'Creative Writing, Blog Posts, Product Descriptions', 'Dublin, Ireland', '12345678', 3500),
+('Logan Lee', 'logan.lee@mail.com', 'Software Development, Python, Flask', 'Chicago, USA', '12345678', 650),
+('Isabella Harris', 'isabella.harris@mail.com', 'Branding, Logo Design, Adobe Illustrator', 'Berlin, Germany', '12345678', 559),
+('Ethan Moore', 'ethan.moore@mail.com', 'Photography, Product Photography, Photo Editing', 'Barcelona, Spain', '12345678', 5900),
+('Avery Adams', 'avery.adams@mail.com', 'Web Development, WordPress, WooCommerce', 'San Francisco, USA', '12345678', 4250),
+('Charlotte Davis', 'charlotte.davis@mail.com', 'Digital Marketing, Facebook Ads, Google Ads', 'Los Angeles, USA', '12345678', 6500),
+('Mason Miller', 'mason.miller@mail.com', 'Mobile App Development, Android, Kotlin', 'Boston, USA', '12345678', 7000),
+('Harper Rodriguez', 'harper.rodriguez@mail.com', 'Business Consulting, Marketing Strategy, Sales', 'Austin, USA', '12345678', 7500),
+('Grace Wilson', 'grace.wilson@mail.com', 'Content Writing, Copywriting, Technical Writing', 'New York, USA', '12345678', 5000),
+('Jackson Walker', 'jackson.walker@mail.com', 'Web Development, Angular, TypeScript', 'Los Angeles, USA', '12345678', 600),
+('Amos Green', 'amos.green@mail.com', 'Video Production, Motion Graphics, After Effects', 'Chicago, USA', '12345678', 7000),
+('Ella Taylor', 'ella.taylor@mail.com', 'Social Media Management, Instagram Marketing, Content Planning', 'Miami, USA', '12345678', 4000),
+('Sebastian Young', 'sebastian.young@mail.com', 'Database Management, SQL, MySQL', 'Toronto, Canada', '12345678', 65),
+('Grace Clark', 'grace.clark@mail.com', 'Creative Writing, Copywriting, Technical Writing', 'Los Angeles, USA', '12345678', 500),
+('Ethan Wright', 'ethan.wright@mail.com', 'Full-Stack Development, Java, Spring Boot', 'Paris, France', '12345678', 750),
+('Aria Brooks', 'aria.brooks@mail.com', 'App Development, Android, Kotlin', 'San Francisco, USA', '12345678', 700),
+('Mila Lewis', 'mila.lewis@mail.com', 'Web Development, Python, Django', 'London, UK', '12345678', 550),
+('Henry Walker', 'henry.walker@mail.com', 'Game Development, Unity, C#', 'New York, USA', '12345678', 850),
+('Sofia Young', 'sofia.young@mail.com', 'Mobile App Development, React Native, Expo', 'Sydney, Australia', '12345678', 750),
+('Maya Williams', 'maya.williams@mail.com', 'SEO, Digital Marketing, Content Strategy', 'Toronto, Canada', '12345678', 600),
+('James Martinez', 'james.martinez@mail.com', 'Web Development, Ruby on Rails, JavaScript', 'Austin, USA', '12345678', 6500) [22001-224]

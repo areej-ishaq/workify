@@ -1,7 +1,7 @@
 /* General Body Styling */
 body {
     background-color: #f4f4f9;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     color: #333;
     margin: 3px;
     padding: 0;
@@ -23,6 +23,37 @@ h1 {
     letter-spacing: 1px;
     line-height: 1.3;
 }
+
+/* Styling for h2 */
+h2 {
+    font-family: 'Courier', monospace;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+ /* Styling for p */
+p {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    font-weight: 400; /* Adjusted to make the text more visible */
+    color: #34495e;
+    line-height: 1.8; /* Increased for better readability */
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+  }
+  
 
 /* Styling for signup-link paragraph */
 .signup-link {
@@ -133,6 +164,7 @@ table, th, td {
 /* Button Base Styling */
 button {
     padding: 12px 30px;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 1.1rem;
     border-radius: 50px;
     cursor: pointer;
@@ -193,6 +225,14 @@ button {
     text-align: center;
 }
 
+/* Placeholder Styling */
+input::placeholder, textarea::placeholder {
+    color: #7f8c8d; /* Lighter color for placeholder text */
+    font-style: italic; /* Optional: makes the placeholder text italicized */
+    font-family: 'Courier New', Courier, monospace; /* Ensure consistency with body font */
+    font-weight: 400; /* Adjust the weight to make the placeholder more visible */
+}
+
 /* Error Message Styling */
 form span.error {
     color: #e31919; 
@@ -201,6 +241,7 @@ form span.error {
     display: block; /* Ensures proper alignment below the input */
     font-weight: 500;
     letter-spacing: 0.5px;
+    font-weight: bold;
 }
 
 /* Form Elements Styling */

@@ -4,23 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.print.DocFlavor.STRING;
-
 import com.juw.oop.workify.service.FreelancerService;
+import com.juw.oop.workify.service.RequestService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.juw.oop.workify.entity.Client;
 import com.juw.oop.workify.entity.Freelancer;
+import com.juw.oop.workify.entity.Request;
 import com.juw.oop.workify.repository.ClientRepository;
 import com.juw.oop.workify.service.ClientService;
 
@@ -43,35 +40,13 @@ public class ClientController {
     an instance of ClientService class into the class */
     @Autowired
     ClientRepository clientRepository;
+    @Autowired
+    RequestService requestService;
 
     public ClientController(FreelancerService freelancerService) {
         this.freelancerService = freelancerService;
     }
 
-    @GetMapping("/find-work")
-    public String showFindWorkPage(HttpSession session, Model model) {
-        Client clientRecord = (Client) session.getAttribute("client");
-
-        model.addAttribute("client", clientRecord);
-        return "/client/find-work";
-
-    }
-    
-    @GetMapping("/find-work-results")
-    public String showMatchingFreelancers(HttpSession session, Model model) {
-        List<Freelancer> matchingFreelancers = new ArrayList<>();
-        Client clientRecord = (Client) session.getAttribute("client");
-        String skillRequirement = clientRecord.getSkillRequirement();
-
-        if (skillRequirement != null && !skillRequirement.isEmpty()) {
-            // Fetch freelancers matching the skillRequirement
-            matchingFreelancers = freelancerService.findFreelancersBySkill(skillRequirement);
-        }
-
-        model.addAttribute("freelancers", matchingFreelancers);
-        model.addAttribute("client", clientRecord); // Retain the skillRequirement for display
-        return "/client/find-work-results"; // Points to find-work-results.html
-    }
     
     // Show Sign Up page
     @GetMapping("/client-signup")
@@ -109,11 +84,26 @@ public class ClientController {
 
     @PostMapping("/client-login")
     public String clientLogin(@ModelAttribute Client client, HttpSession session, Model model) {
+
         Optional<Client> clientRecord = clientService.authenticateClient(client.getEmail(), client.getPassword());
         
         if (clientRecord.isPresent()) {
-            // Store client object in session
+            // Fetch the existing client from the session (if any)
+            Client existingClient = (Client) session.getAttribute("client");
+
+            if (existingClient != null) {
+                existingClient.setId(clientRecord.get().getId());
+                existingClient.setName(clientRecord.get().getName());
+                existingClient.setLocation(clientRecord.get().getLocation());
+                existingClient.setEmail(clientRecord.get().getEmail());
+
+                System.out.println("client id: " + existingClient.getId());
+                // Save the updated client to the session
+                session.setAttribute("client", existingClient);
+        } else {
+            // If no existing client in the session, set the authenticated client in the session
             session.setAttribute("client", clientRecord.get());
+        }
             return "redirect:/client-home"; // Redirect to client home
         } else {
             // Invalid login
@@ -122,17 +112,93 @@ public class ClientController {
         }
     }
     
+    // Show client dashboard
     @GetMapping("/client-home")
     public String showClientHomePg(HttpSession session, Model model) {
         Client client = (Client) session.getAttribute("client");
         String Clientname = client.getName();
+        Boolean nullClientName = false; // Check if client name is null (if they directly access client-home link)
+
+        if (Clientname == null) {
+            nullClientName = true;
+        }
         model.addAttribute("name", Clientname);
         model.addAttribute("client", client);
+        model.addAttribute("nullClient", nullClientName);
         return "/client/client-home";
     }
     
+    @GetMapping("/find-work")
+    public String showFindWorkPage(HttpSession session, Model model) {
+        Client clientRecord = (Client) session.getAttribute("client");
+
+        model.addAttribute("client", clientRecord);
+        return "/client/find-work";
+
+    }
+    
+    @GetMapping("/find-work-results")
+    public String showMatchingFreelancers(HttpSession session, Model model) {
+        List<Freelancer> matchingFreelancers = new ArrayList<>();
+        Client clientRecord = (Client) session.getAttribute("client");
+        String skillRequirement = clientRecord.getSkillRequirement();
+        Boolean noFreelancersFound = false;
+
+        if (skillRequirement != null && !skillRequirement.isEmpty()) {
+            // Fetch freelancers matching the skillRequirement
+            matchingFreelancers = freelancerService.findFreelancersBySkill(skillRequirement);
+        }
+        if (matchingFreelancers.isEmpty()) {
+            noFreelancersFound = true;
+        }
+
+        model.addAttribute("freelancers", matchingFreelancers);
+        model.addAttribute("client", clientRecord); // Retain the skillRequirement for display
+        model.addAttribute("noFreelancersFound", noFreelancersFound);
+        return "/client/find-work-results"; // Points to find-work-results.html
+    }
+
+    @GetMapping("/send-request/{freelancerId}")
+    public String sendRequest(@PathVariable Long freelancerId, HttpSession session, RedirectAttributes redirectAttributes) 
+    {
+        Client client = (Client) session.getAttribute("client");
+
+        if (client == null) {
+            redirectAttributes.addFlashAttribute("error", "Client information is missing.");
+            return "redirect:/client/find-work";
+        }
+        
+        // Fetch the client from the database to ensure it's managed
+        Client managedClient = clientService.findById(client.getId());
+        if (managedClient == null) {
+            redirectAttributes.addFlashAttribute("error", "Client not found in the database.");
+            return "redirect:/client/find-work";
+        }
+        
+        Freelancer freelancer = freelancerService.findById(freelancerId);
+        if (freelancer == null) {
+            redirectAttributes.addFlashAttribute("error", "Freelancer not found.");
+            return "redirect:/client/find-work";
+        }
+        
+        Request request = new Request();
+        request.setClient(managedClient); // Use the managed client
+        request.setFreelancer(freelancer);
+        request.setClientName(managedClient.getName());
+        request.setFreelancerName(freelancer.getName());
+        request.setPrice(freelancer.getPrice());
+        request.setSkill(freelancer.getSkill());
+        request.setStatus("Pending");
+        
+        requestService.saveRequest(request);
+        
+        redirectAttributes.addFlashAttribute("message", "Request sent successfully!");
+        return "redirect:/client-home";
+    }
+
     @GetMapping("/update-skill-req/{email}")
-    public String showUpdateSkillReqPg(@PathVariable String email, HttpSession session, Model model) {
+    public String showUpdateSkillReqPg(@PathVariable String email, HttpSession session, Model model) 
+    {
         Client client = clientRepository.findByEmail(email).get();
 
         model.addAttribute("client", client);
@@ -142,7 +208,12 @@ public class ClientController {
     @PutMapping("/update-skill-req/{email}")
     public String updateClient(@ModelAttribute Client client, 
                                 @PathVariable("email") String email, Model model, 
-                                HttpSession session, RedirectAttributes redirectAttributes) {
+                                HttpSession session, RedirectAttributes redirectAttributes) 
+    {
+        Client existingClient = (Client) session.getAttribute("client");
+        existingClient.setSkillRequirement(client.getSkillRequirement());
+        session.setAttribute("client", existingClient);
+
         Optional<String> clientNotFoundError = clientService.updateSkillRequirement(client);
 
         if (clientNotFoundError.isPresent()) {
@@ -150,28 +221,9 @@ public class ClientController {
             return "/client/update-skill-req";
         }
 
-        session.setAttribute("client", client);
         redirectAttributes.addFlashAttribute("message", "Requirement successfully updated!");
         return "redirect:/client-home";
         
     } 
 
-    /*  
-    @PutMapping("/clients/{id}")
-    public ResponseEntity<String> updateClient(@Valid @RequestBody Client client, @PathVariable("id") Long clientId) {
-        return clientService.updateClient(client, clientId); 
-    }
-
-    @DeleteMapping("/clients/{id}")
-    public ResponseEntity<String> deleteClient(@PathVariable("id") Long clientId) {
-        return clientService.deleteClientById(clientId);
-    }
-
-    */
-    @GetMapping("/clients")
-    public String fetchClients(Model model) {
-        List<Client> clientList = clientService.fetchClients();
-        model.addAttribute("clientList", clientList);
-        return "/client/list-of-clients";
-    }
 }

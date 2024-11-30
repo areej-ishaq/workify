@@ -23,6 +23,10 @@ perform database operations. */
 public class ClientService {
     @Autowired // Automatically create UserRepository instance
     ClientRepository clientRepository;
+
+    public Client findById(Long id) {
+        return clientRepository.findById(id).orElse(null);
+    }
     
     public Optional<String> saveClient(Client client) {
         Optional<Client> existingClient = clientRepository.findByEmail(client.getEmail());

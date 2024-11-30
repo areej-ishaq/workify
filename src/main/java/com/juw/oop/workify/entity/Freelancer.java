@@ -35,7 +35,7 @@ public class Freelancer {
     private String password;
 
     @NotBlank(message = "Skill is required.")
-    @Size(min = 3, max = 50, message = "Skill must be between 3 and 50 characters.")
+    @Size(min = 2, max = 200, message = "Skill must be between 3 and 50 characters.")
     private String skill;
 
     @Column(nullable = false)

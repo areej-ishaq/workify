@@ -10,7 +10,8 @@
 <body>
 
     <!-- Welcome Section -->
-    <h1 th:text="'Welcome ' + ${name} + '!'">Welcome, Client!</h1>
+    <h1 th:text="${nullClient} ? 'Welcome, Client!' : 'Welcome ' + ${name} + '!'">Welcome, Client!</h1>
+
 
     <!-- Success Message Alert -->
     <div th:if="${message}" class="alert">
@@ -26,7 +27,7 @@
             <button class="btn-secondary">Home</button>
         </a>
         <a th:href="@{/find-work}">
-            <button class="btn-secondary">Find Work</button>
+            <button class="btn-secondary">Find Talent</button>
         </a>
     </div>
 

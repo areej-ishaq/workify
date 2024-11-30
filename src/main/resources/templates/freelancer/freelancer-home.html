@@ -12,13 +12,16 @@
 
     <!-- Display success message for updating skill -->
     <div th:if="${message}">
-        <p style="color: green;" th:text="${message}"></p>
+        <p style="color: green; font-weight:bold;" th:text="${message}"></p>
     </div>
 
     <!-- Buttons section -->
      <div class="button-container">
         <a th:href="@{/update-skill/{email}(email=${freelancer.email})}">
             <button class="btn-primary">Set Skill & Price</button>
+        </a>
+        <a href="freelancer-requests">
+            <button class="btn-primary">View Requests</button>
         </a>
         <a href="home">
             <button class="btn-secondary">Home</button>

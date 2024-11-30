@@ -20,16 +20,25 @@
                 <th>Name</th>
                 <th>Skill</th>
                 <th>Price</th>
+                <th>Request</th>
             </tr>
         </thead>
         <tbody>
+            <!-- Display message if no freelancers are found -->
+            <tr th:if="${noFreelancersFound}">
+                <td colspan="4" style="text-align: center; color: rgb(156, 3, 3); font-weight: bold;">Uh-oh, no such talent found!</td>
+            </tr>
+            
+            <!-- Display freelancers if found -->
             <tr th:each="freelancer : ${freelancers}">
                 <td th:text="${freelancer.name}"></td>
                 <td th:text="${freelancer.skill}"></td>
                 <td th:text="${freelancer.price}"></td>
+                <td><a th:href="@{/send-request/{freelancerId}(freelancerId=${freelancer.id})}">Send Request</a></td>
             </tr>
         </tbody>
     </table>
+    
     <p class="signup-link">
         <a th:href="@{/update-skill-req/{email}(email=${client.email})}">
             Change Requirement?
