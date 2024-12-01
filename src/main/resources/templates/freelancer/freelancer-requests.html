@@ -8,6 +8,24 @@
     <title>Your Requests</title>
 </head>
 <body>
+    <header class="header">
+        <div class="header-content">
+            <a href="home">
+                <img
+                     src="/images/workify-favicon.jpeg"
+                     alt="Workify"
+                     title="Workify"
+                     /> 
+            </a>
+            <h1 class="logo">Workify: Revolutionizing the Way You Work</h1>
+            <nav class="nav">
+                <a href="home">Home</a>
+                <a href="aboutUs">About Us</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
     <p style="color: rgb(156, 3, 3); font-weight: bold;" th:if="${noRequests} ? 'It seems you have no requests as of yet'"></p>
     <div th:each="request : ${requests}">
         <div>
@@ -18,5 +36,6 @@
             <a th:href="@{/freelancer/reject-request/{requestId}(requestId=${request.id})}">Reject</a>
         </div>
     </div>
+    </main>
 </body>
 </html>
