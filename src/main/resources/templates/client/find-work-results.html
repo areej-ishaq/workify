@@ -8,7 +8,25 @@
     <title>Find Work</title>
 </head>
 <body>
-    <h1>Matching Freelancers</h1>
+    <header class="header">
+        <div class="header-content">
+            <a href="home">
+                <img
+                     src="/images/workify-favicon.jpeg"
+                     alt="Workify"
+                     title="Workify"
+                     /> 
+            </a>
+            <h1 class="logo">Workify: Revolutionizing the Way You Work</h1>
+            <nav class="nav">
+                <a href="home">Home</a>
+                <a href="aboutUs">About Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1>Matching Freelancers</h1>
 
     <div>
         <p>Search results for: <span th:text="${client.skillRequirement}"></span></p>
@@ -44,6 +62,7 @@
             Change Requirement?
         </a>
     </p>
+    </main>
 
 </body>
 </html>

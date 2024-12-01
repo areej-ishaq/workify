@@ -8,28 +8,46 @@
     <title>Workify: Dashboard</title>
 </head>
 <body>
+    <header class="header">
+        <div class="header-content">
+            <a href="home">
+                <img
+                     src="/images/workify-favicon.jpeg"
+                     alt="Workify"
+                     title="Workify"
+                     /> 
+            </a>
+            <h1 class="logo">Workify: Revolutionizing the Way You Work</h1>
+            <nav class="nav">
+                <a href="home">Home</a>
+                <a href="aboutUs">About Us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <!-- Welcome Section -->
+        <h1 th:text="${nullClient} ? 'Welcome, Client!' : 'Welcome ' + ${name} + '!'">Welcome, Client!</h1>
 
-    <!-- Welcome Section -->
-    <h1 th:text="${nullClient} ? 'Welcome, Client!' : 'Welcome ' + ${name} + '!'">Welcome, Client!</h1>
 
+        <!-- Success Message Alert -->
+        <div th:if="${message}" class="alert">
+            <p th:text="${message}"></p>
+        </div>
 
-    <!-- Success Message Alert -->
-    <div th:if="${message}" class="alert">
-        <p th:text="${message}"></p>
-    </div>
-
-    <!-- Buttons Section -->
-    <div class="button-container">
-        <a th:href="@{/update-skill-req/{email}(email=${client.email})}">
-            <button class="btn-primary">Change Requirement</button>
-        </a>
-        <a href="home">
-            <button class="btn-secondary">Home</button>
-        </a>
-        <a th:href="@{/find-work}">
-            <button class="btn-secondary">Find Talent</button>
-        </a>
-    </div>
+        <!-- Buttons Section -->
+        <div class="button-container">
+            <a th:href="@{/update-skill-req/{email}(email=${client.email})}">
+                <button class="btn-primary">Change Requirement</button>
+            </a>
+            <a href="home">
+                <button class="btn-secondary">Home</button>
+            </a>
+            <a th:href="@{/find-work}">
+                <button class="btn-secondary">Find Talent</button>
+            </a>
+        </div>
+    </main>
+    
 
 </body>
 </html>

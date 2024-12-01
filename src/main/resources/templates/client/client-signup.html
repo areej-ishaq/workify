@@ -7,7 +7,24 @@
     <title>Client Sign Up</title>
 </head>
 <body>
-    <h1>Client: Sign Up</h1>
+    <header class="header">
+        <div class="header-content">
+            <a href="home">
+                <img
+                     src="/images/workify-favicon.jpeg"
+                     alt="Workify"
+                     title="Workify"
+                     /> 
+            </a>
+            <h1 class="logo">Workify: Revolutionizing the Way You Work</h1>
+            <nav class="nav">
+                <a href="home">Home</a>
+                <a href="aboutUs">About Us</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <h1>Client: Sign Up</h1>
     <form th:action="@{/client-signup}" method="POST" th:object="${client}">
         <div>
             <label for="name">Name:</label>
@@ -47,6 +64,7 @@
         <button type="submit" class="btn-primary">Sign Up</button>
 
     </form>
+    </main>
 
 </body>
 </html>

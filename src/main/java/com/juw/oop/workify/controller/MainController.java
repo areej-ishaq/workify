@@ -25,4 +25,9 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping("/aboutUs")
+    public String showAboutUs() {
+        return "aboutUs";
+    }
+
 }

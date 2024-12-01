@@ -1,17 +1,91 @@
+/* Universal Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Reset for HTML and Body */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100%;
+}
+
 /* General Body Styling */
 body {
     background-color: #f4f4f9;
     font-family: 'Courier New', Courier, monospace;
     color: #333;
-    margin: 3px;
-    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;  /* Aligns content at the top */
     min-height: 100vh;
-    box-sizing: border-box;
+    padding-top: 100px; /* Adds padding to account for the fixed header */
 }
+
+/* Header Styling */
+.header {
+    background-color: black;
+    color: white;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Content */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-right: auto;
+    margin-left: 10px;
+    padding: 0 20px;
+}
+
+/* Logo Styling */
+.logo {
+    color: white;
+    font-weight: 300;  /* Lighter font weight */
+    font-size: 1.8rem;
+    margin: 0;
+    letter-spacing: 1px;
+    margin-right: 0px;  /* Pushes the logo to the left */
+}
+
+/* Navigation Menu */
+.nav {
+    display: flex;
+    gap: 20px;
+}
+
+/* Ensuring Body Content does not overlap with the header */
+main {
+    margin-top: 130px; /* You can adjust the value as needed */
+}
+
+
+/* Navigation Links */
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav a:hover {
+    color: #d4e9ff;
+    text-decoration: underline;
+}
+
 
 /* Heading Styling */
 h1 {
@@ -147,6 +221,7 @@ table, th, td {
 /* Button Container Styling */
 .button-container {
     display: flex;
+    justify-content: center;
     gap: 20px;
     margin-top: 40px;
     flex-wrap: wrap; /* Ensure buttons wrap in smaller screens */

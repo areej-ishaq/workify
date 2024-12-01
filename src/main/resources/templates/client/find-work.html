@@ -5,12 +5,31 @@
     <link rel="stylesheet" th:href="@{/css/home-style.css}" />
 </head>
 <body>
-    <h1>Find Talent!</h1>
+    <header class="header">
+        <div class="header-content">
+            <a href="home">
+                <img
+                     src="/images/workify-favicon.jpeg"
+                     alt="Workify"
+                     title="Workify"
+                     /> 
+            </a>
+            <h1 class="logo">Workify: Revolutionizing the Way You Work</h1>
+            <nav class="nav">
+                <a href="home">Home</a>
+                <a href="aboutUs">About Us</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <h1>Find Talent!</h1>
     <div>
         <p th:text="'The skill you asked for: ' + ${client.skillRequirement}">The skill needed goes here</p> 
     </div>
     <div class="button-container">
         <a href="find-work-results"><button type="submit" class="btn-primary">Search for Freelancers</button></a>
     </div>
+    </main>
 </body>
 </html>
