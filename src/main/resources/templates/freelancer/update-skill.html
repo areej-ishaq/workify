@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="/images/workify-favicon.jpeg">
     <link rel="stylesheet" th:href="@{/css/home-style.css}" />
     <title>Workify: Update</title>
 </head>
@@ -40,11 +41,6 @@
     <form action="#" th:action="@{/update-skill/{email}(email=${freelancer.email})}" method="post" th:object="${freelancer}">
         <!-- Hidden field to specify HTTP method as PUT -->
         <input type="hidden" name="_method" value="PUT" />
-
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" th:field="*{email}" readonly="true" />
-        </div>
 
         <div>
             <label for="skill">New Skill:</label>

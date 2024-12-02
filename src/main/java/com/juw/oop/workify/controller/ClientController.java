@@ -137,6 +137,7 @@ public class ClientController {
 
     }
     
+    // View results of matching freelancers
     @GetMapping("/find-work-results")
     public String showMatchingFreelancers(HttpSession session, Model model) {
         List<Freelancer> matchingFreelancers = new ArrayList<>();
@@ -158,6 +159,7 @@ public class ClientController {
         return "/client/find-work-results"; // Points to find-work-results.html
     }
 
+    // Send request
     @GetMapping("/send-request/{freelancerId}")
     public String sendRequest(@PathVariable Long freelancerId, HttpSession session, RedirectAttributes redirectAttributes) 
     {
@@ -196,6 +198,25 @@ public class ClientController {
         return "redirect:/client-home";
     }
 
+        // View status of requests sent 
+    @GetMapping("/view-requests-status")
+    public String showRequestsStatuspg(Model model, HttpSession session) {
+        Client client = (Client) session.getAttribute("client");
+        Boolean noRequests = false;
+
+        if (client == null) {
+            return "redirect:/client-login";
+        }
+
+        List<Request> requests = requestService.findByClient(client);
+        if (requests.isEmpty()) {
+            noRequests = true;
+        }
+        model.addAttribute("requests", requests);
+        model.addAttribute("noRequests", noRequests);
+        return "/client/view-requests-status";
+    }
+
     @GetMapping("/update-skill-req/{email}")
     public String showUpdateSkillReqPg(@PathVariable String email, HttpSession session, Model model) 
     {
@@ -224,6 +245,6 @@ public class ClientController {
         redirectAttributes.addFlashAttribute("message", "Requirement successfully updated!");
         return "redirect:/client-home";
         
-    } 
-
+    }
+    
 }

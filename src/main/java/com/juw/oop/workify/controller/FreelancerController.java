@@ -125,7 +125,7 @@ public class FreelancerController {
             requestService.saveRequest(request);
         }
 
-        redirectAttributes.addAttribute("message", "Request successfully accepted");
+        redirectAttributes.addFlashAttribute("message", "Request successfully accepted");
         return "redirect:/freelancer-home";
     }
 
@@ -144,7 +144,7 @@ public class FreelancerController {
             requestService.saveRequest(request);
         }
 
-        redirectAttributes.addAttribute("message", "Request successfully rejected");
+        redirectAttributes.addFlashAttribute("message", "Request successfully rejected");
         return "redirect:/freelancer-home"; 
     }
 
@@ -167,40 +167,9 @@ public class FreelancerController {
             return "/freelancer/update-skill";
         }
 
-        redirectAttributes.addFlashAttribute("message", "Skill successfully updated!");
+        redirectAttributes.addFlashAttribute("message", "Successfully updated!");
         return "redirect:/freelancer-home";
         
     } 
-    /*  
-    @PutMapping("/freelancers/{id}")
-public ResponseEntity<String> updateFreelancer(@Valid @RequestBody Freelancer freelancer, 
-                                               @PathVariable("id") Long freelancerId, 
-                                               BindingResult bindingResult) {
-    // Check if validation errors exist
-    if (bindingResult.hasErrors()) {
-        // Collect all error messages into a single string
-        String errorMessages = bindingResult.getAllErrors().stream()
-            .map(ObjectError::getDefaultMessage)
-            .collect(Collectors.joining(", "));
-        
-        // Return a bad request response with the validation error messages
-        return ResponseEntity.badRequest().body("Validation failed: " + errorMessages);
-    }
-
-    // If validation is successful, delegate to the service layer to update the freelancer
-    return freelancerService.updateFreelancer(freelancer, freelancerId);
-    }
-
-
-    @DeleteMapping("/freelancers/{id}")
-    public ResponseEntity<String> deleteFreelancer(@PathVariable("id") Long freelancerId) {
-        return freelancerService.deleteFreelancer(freelancerId);
-    }
-*/
-    @GetMapping("/freelancers")
-    public String fetchFreelancers(Model model) {
-        List<Freelancer> freelancersList = freelancerService.fetchFreelancers();
-        model.addAttribute("freelancersList", freelancersList);
-        return "/freelancer/list-of-freelancers";
-    }
+    
 }

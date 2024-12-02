@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpeg" href="/images/workify-favicon.jpeg">
     <link rel="stylesheet" th:href="@{/css/home-style.css}" />
-    <title>Workify: Dashboard</title>
+    <title>Request Status</title>
 </head>
 <body>
     <header class="header">
@@ -26,28 +26,22 @@
         </div>
     </header>
     <main>
-    <h1 th:text = "'Welcome ' + ${name} + '!'">Welcome, Freelancer!</h1>
-
-    <!-- Success Message Alert -->
-    <div th:if="${message}" class="alert">
-        <p th:text="${message}"></p>
-    </div>
-
-    <!-- Buttons section -->
-     <div class="button-container">
-        <a th:href="@{/update-skill/{email}(email=${freelancer.email})}">
-            <button class="btn-primary">Set Skill & Price</button>
-        </a>
-        <a href="freelancer-requests">
-            <button class="btn-primary">View Requests</button>
-        </a>
-        <a href="home">
-            <button class="btn-secondary">Home</button>
-        </a>
-     </div>
+        <div class="all-requests-container">
+            <h1>All Requests</h1>
+            <p class="no-requests" th:if="${noRequests}">
+                Currently, you've sent no requests
+            </p>
+            <div class="request-list" th:if="${!noRequests}">
+                <div class="request-item" th:each="request : ${requests}">
+                    <p>Freelancer: <span th:text="${request.freelancerName}"></span></p>
+                    <p>Freelancer Email: <span th:text="${request.freelancer.email}"></span></p>
+                    <p>Skill: <span th:text="${request.skill}"></span></p>
+                    <p>Price: $<span th:text="${request.price}"></span></p>
+                    <p>Status: <span th:text="${request.status}"></span></p>
+                </div>
+            </div>
+        </div>        
     </main>
     
 </body>
 </html>
-    
-    

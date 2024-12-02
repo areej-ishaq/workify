@@ -128,6 +128,158 @@ p {
     padding: 0 15px;
   }
   
+/* Styling for the All Requests Section */
+.all-requests-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading Styling */
+.all-requests-container h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* No Requests Message Styling */
+.no-requests {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #8c8c8c;
+    font-weight: 500;
+    margin-top: 30px;
+}
+
+/* Requests List Styling */
+.request-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Individual Request Styling */
+.request-item {
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.request-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Text Styling for Request Details */
+.request-item p {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Label for Highlighted Info */
+.request-item span {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Styling for the Freelancer Requests Section */
+.freelancer-requests-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading Styling */
+.freelancer-requests-container h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* No Requests Message Styling */
+.no-requests-message {
+    color: rgb(156, 3, 3);
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Requests List Styling */
+.freelancer-request-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Individual Request Styling */
+.freelancer-request-item {
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.freelancer-request-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Text Styling for Request Details */
+.freelancer-request-item p {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Highlighted Labels */
+.freelancer-request-item span {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Action Links Styling */
+.freelancer-request-item a {
+    text-decoration: none;
+    color: #4290b4;
+    font-weight: 600;
+    margin-right: 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    font-size: 1rem;
+}
+
+.freelancer-request-item a:hover {
+    color: #56b3e0;
+    transform: translateY(-2px);
+}
+
+.freelancer-request-item a:active {
+    transform: translateY(2px);
+}
 
 /* Styling for signup-link paragraph */
 .signup-link {
@@ -159,6 +311,7 @@ p {
 .alert {
     background-color: #28a745;
     color: white;
+    font-weight: bold;
     padding: 15px 30px;
     border-radius: 25px;
     margin: 20px 0;
@@ -267,18 +420,22 @@ button {
 
 /* Secondary Button Styling */
 .btn-secondary {
-    background-color: #4290b4cc;
-    box-shadow: 0 6px 12px rgba(108, 117, 125, 0.2);
+    background-color: #4290b4; /* Vibrant initial state */
+    box-shadow: 0 6px 12px rgba(66, 144, 180, 0.8);
+    color: white;
 }
 
 .btn-secondary:hover {
-    background-color: #3080a5;
+    background-color: #56b3e0; /* Brighter and more vibrant blue */
     transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(86, 179, 224, 0.7); /* Matches vibrancy */
 }
 
 .btn-secondary:active {
     transform: translateY(2px);
+    box-shadow: 0 4px 8px rgba(66, 144, 180, 0.4); /* Slightly reduced shadow on click */
 }
+
 
 /* Form Container */
 .form-container {

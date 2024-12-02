@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="/images/workify-favicon.jpeg">
     <link rel="stylesheet" th:href="@{/css/home-style.css}" />
     <title>Workify: Dashboard</title>
 </head>
@@ -39,11 +40,14 @@
             <a th:href="@{/update-skill-req/{email}(email=${client.email})}">
                 <button class="btn-primary">Change Requirement</button>
             </a>
-            <a href="home">
-                <button class="btn-secondary">Home</button>
+            <a href="view-requests-status">
+                <button class="btn-secondary">View Requests</button>
             </a>
             <a th:href="@{/find-work}">
-                <button class="btn-secondary">Find Talent</button>
+                <button class="btn-primary">Find Talent</button>
+            </a>
+            <a href="home">
+                <button class="btn-secondary">Home</button>
             </a>
         </div>
     </main>

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="/images/workify-favicon.jpeg">
     <link rel="stylesheet" th:href="@{/css/home-style.css}" />
     <title>Your Requests</title>
 </head>
@@ -26,16 +27,23 @@
     </header>
     
     <main>
-    <p style="color: rgb(156, 3, 3); font-weight: bold;" th:if="${noRequests} ? 'It seems you have no requests as of yet'"></p>
-    <div th:each="request : ${requests}">
-        <div>
-            <p>Client: <span th:text="${request.clientName}">clientName</span></p>
-            <p>Skill needed: <span th:text="${request.skill}"></span></p>
-            <p>Status: <span th:text="${request.status}"></span></p>
-            <a th:href="@{/freelancer/accept-request/{requestId}(requestId=${request.id})}">Accept</a>
-            <a th:href="@{/freelancer/reject-request/{requestId}(requestId=${request.id})}">Reject</a>
+        <div class="freelancer-requests-container">
+            <h1>Requests Sent to You</h1>
+            <p class="no-requests-message" th:if="${noRequests}">
+                It seems you have no requests as of yet.
+            </p>
+            <div class="freelancer-request-list" th:if="${!noRequests}">
+                <div class="freelancer-request-item" th:each="request : ${requests}">
+                    <p>Client: <span th:text="${request.clientName}"></span></p>
+                    <p>Skill needed: <span th:text="${request.skill}"></span></p>
+                    <p>Client email: <span th:text="${request.client.email}"></span></p>
+                    <p>Status: <span th:text="${request.status}"></span></p>
+                    <a th:href="@{/freelancer/accept-request/{requestId}(requestId=${request.id})}">Accept</a>
+                    <a th:href="@{/freelancer/reject-request/{requestId}(requestId=${request.id})}">Reject</a>
+                </div>
+            </div>
         </div>
-    </div>
+        
     </main>
 </body>
 </html>
